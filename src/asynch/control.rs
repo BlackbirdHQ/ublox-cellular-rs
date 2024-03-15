@@ -1,8 +1,4 @@
-use core::future::poll_fn;
-use core::task::Poll;
-
 use atat::asynch::AtatClient;
-use embassy_time::{with_timeout, Duration};
 
 use crate::error::Error;
 
@@ -39,6 +35,13 @@ impl<'a, AT: AtatClient> Control<'a, AT> {
 
     pub async fn set_desired_state(&mut self, ps: OperationState) {
         self.state_ch.set_desired_state(ps).await;
+    }
+
+    pub async fn wait_for_desired_state(
+        &mut self,
+        ps: OperationState,
+    ) -> Result<OperationState, Error> {
+        self.state_ch.wait_for_desired_state(ps).await
     }
 
     pub async fn get_signal_quality(
