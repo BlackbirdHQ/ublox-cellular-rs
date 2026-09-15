@@ -63,6 +63,9 @@ impl defmt::Format for Error {
             Self::Generic(e) => defmt::write!(f, "Generic({:?})", e),
             Self::Atat(e) => defmt::write!(f, "Atat({:?})", e),
             Self::_Unknown => defmt::write!(f, "_Unknown"),
+            Self::SimCard => defmt::write!(f, "SimCard"),
+            Self::IoPin => defmt::write!(f, "IoPin"),
+            Self::SubscriberOverflow(e) => defmt::write!(f, "SubscriberOverflow({:?})", e),
             _ => defmt::write!(f, "non_exhaustive"),
         }
     }
